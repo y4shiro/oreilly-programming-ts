@@ -84,5 +84,27 @@ function times(f: (index: number) => void, n: number) {
     f(i);
   }
 }
-
 times((n) => console.log(n), 4);
+
+// 4.1.9
+// type Log2 = (message: string, userId?: string) => void;
+type Log2 = {
+  (message: string, userId?: string): void;
+};
+
+type Reserve = {
+  (from: Date, to: Date, destination: string): Reservation;
+  (from: Date, destination: string): Reservation;
+};
+
+let reserve: Reserve = (
+  from: Date,
+  toOrDestination: Date | string,
+  destination?: string
+) => {
+  if (toOrDestination instanceof Date && destination !== undefined) {
+    // 宿泊旅行を予約
+  } else if (typeof toOrDestination === 'string') {
+    // 日帰り旅行を予約
+  }
+};
