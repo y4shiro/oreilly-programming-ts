@@ -62,3 +62,18 @@ fibonacciGenerator.next(); // {value: 1, done: false}
 fibonacciGenerator.next(); // {value: 2, done: false}
 fibonacciGenerator.next(); // {value: 3, done: false}
 fibonacciGenerator.next(); // {value: 5, done: false}
+
+// 4.1.7
+// function greet(name: string)
+type Greet = (name: string) => string;
+
+// function log(message: string, userId?: string)
+type Log = (message: string, userId?: string) => void;
+
+// function sumVariadicSafe(...numbers: number[]): number
+type SumVariabdicSafe = (...numbers: number[]) => number;
+
+const log: Log = (message, userId = 'Not signed in') => {
+  const time = new Date().toISOString();
+  console.log(time, message, userId);
+};
