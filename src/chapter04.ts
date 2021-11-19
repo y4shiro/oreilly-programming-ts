@@ -187,3 +187,29 @@ triggerEvent({
   target: document.querySelector('#myButton'),
   type: 'mouseover',
 });
+
+// 4.2.5
+type TreeNode = {
+  value: string;
+};
+type LeafNode = TreeNode & {
+  isLeaf: true;
+};
+type InnerNode = TreeNode & {
+  children: [TreeNode] | [TreeNode, TreeNode];
+};
+
+const treeA: TreeNode = { value: 'a' };
+const treeB: LeafNode = { value: 'b', isLeaf: true };
+const treeC: InnerNode = { value: 'c', children: [treeB] };
+
+function mapNode<T extends TreeNode>(node: T, f: (value: string) => string): T {
+  return {
+    ...node,
+    value: f(node.value),
+  };
+}
+
+const a1 = mapNode(treeA, (_) => _.toUpperCase()); // TreeNode
+const b1 = mapNode(treeB, (_) => _.toUpperCase()); // LeafNode
+const c1 = mapNode(treeC, (_) => _.toUpperCase()); // InnerNode
