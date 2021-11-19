@@ -77,3 +77,12 @@ const log: Log = (message, userId = 'Not signed in') => {
   const time = new Date().toISOString();
   console.log(time, message, userId);
 };
+
+// 4.1.8
+function times(f: (index: number) => void, n: number) {
+  for (let i = 0; i < n; i++) {
+    f(i);
+  }
+}
+
+times((n) => console.log(n), 4);
