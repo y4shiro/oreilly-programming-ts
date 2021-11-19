@@ -45,3 +45,20 @@ function fancyDate(this: Date) {
   return `${this.getMonth() + 1}/${this.getDate()}/${this.getFullYear()}}`;
 }
 fancyDate.call(new Date());
+
+// 4.1.5
+function* createFibonacciGenerator() {
+  let a = 0;
+  let b = 1;
+  while (true) {
+    yield a;
+    [a, b] = [b, a + b];
+  }
+}
+const fibonacciGenerator = createFibonacciGenerator(); // Generator<number>
+fibonacciGenerator.next(); // {value: 0, done: false}
+fibonacciGenerator.next(); // {value: 1, done: false}
+fibonacciGenerator.next(); // {value: 1, done: false}
+fibonacciGenerator.next(); // {value: 2, done: false}
+fibonacciGenerator.next(); // {value: 3, done: false}
+fibonacciGenerator.next(); // {value: 5, done: false}
