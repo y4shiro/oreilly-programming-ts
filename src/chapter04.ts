@@ -161,3 +161,29 @@ function map<T, U>(array: T[], f: (item: T) => U): U[] {
 // 4.2.3
 const promise = new Promise<number>((resolve) => resolve(45));
 promise.then((result) => result * 4);
+
+// 4.2.4
+type MyEvent<T> = {
+  target: T;
+  type: string;
+};
+type ButtonEvent = MyEvent<HTMLButtonElement>;
+const myEvent: MyEvent<HTMLButtonElement | null> = {
+  target: document.querySelector('#myButton'),
+  type: 'click',
+};
+
+type TimedEvent<T> = {
+  event: MyEvent<T>;
+  from: Date;
+  to: Date;
+};
+
+function triggerEvent<T>(event: MyEvent<T>): void {
+  // ...
+}
+triggerEvent({
+  // T は Element | null
+  target: document.querySelector('#myButton'),
+  type: 'mouseover',
+});
