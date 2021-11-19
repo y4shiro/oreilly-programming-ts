@@ -150,10 +150,14 @@ type Filter3 = <T>(array: T[], f: (item: T) => boolean) => T[];
 type Filter4<T> = (array: T[], f: (item: T) => boolean) => T[];
 // function filter5<T>(array: T[], f: (item: T) => boolean): T[] {}
 
-function map(array: unknown[], f: (item: unknown) => unknown): unknown[] {
+function map<T, U>(array: T[], f: (item: T) => U): U[] {
   const result = [];
   for (let i = 0; i < array.length; i++) {
     result[i] = f(array[i]);
   }
   return result;
 }
+
+// 4.2.3
+const promise = new Promise<number>((resolve) => resolve(45));
+promise.then((result) => result * 4);
