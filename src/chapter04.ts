@@ -92,19 +92,49 @@ type Log2 = {
   (message: string, userId?: string): void;
 };
 
-type Reserve = {
-  (from: Date, to: Date, destination: string): Reservation;
-  (from: Date, destination: string): Reservation;
+// type Reserve = {
+//   (from: Date, to: Date, destination: string): Reservation;
+//   (from: Date, destination: string): Reservation;
+// };
+
+// let reserve: Reserve = (
+//   from: Date,
+//   toOrDestination: Date | string,
+//   destination?: string
+// ) => {
+//   if (toOrDestination instanceof Date && destination !== undefined) {
+//     // 宿泊旅行を予約
+//   } else if (typeof toOrDestination === 'string') {
+//     // 日帰り旅行を予約
+//   }
+// };
+
+// 4.2
+// type Filter = {
+//   (array: number[], f: (item: number) => boolean): number[];
+//   (array: string[], f: (item: string) => boolean): string[];
+//   (array: object[], f: (item: object) => boolean): object[];
+// };
+type Filter = {
+  <T>(array: T[], f: (item: T) => boolean): T[];
 };
 
-let reserve: Reserve = (
-  from: Date,
-  toOrDestination: Date | string,
-  destination?: string
-) => {
-  if (toOrDestination instanceof Date && destination !== undefined) {
-    // 宿泊旅行を予約
-  } else if (typeof toOrDestination === 'string') {
-    // 日帰り旅行を予約
+const filter: Filter = (array, f) => {
+  const result = [];
+  for (let i = 0; i < array.length; i++) {
+    const item = array[i];
+    if (f(item)) {
+      result.push(item);
+    }
   }
+  return result;
 };
+filter([1, 2, 3, 4], (_) => _ < 3); // [1, 2] と評価される
+filter(['a', 'b'], (_) => _ !== 'b'); // ['a']
+
+const names = [
+  { firstName: 'beth' },
+  { firstName: 'caitlyn' },
+  { firstName: 'xin' },
+];
+filter(names, (_) => _.firstName.startsWith('b')); // [{ firstName: 'beth' }]
