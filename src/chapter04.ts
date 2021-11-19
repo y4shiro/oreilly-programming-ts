@@ -138,3 +138,22 @@ const names = [
   { firstName: 'xin' },
 ];
 filter(names, (_) => _.firstName.startsWith('b')); // [{ firstName: 'beth' }]
+
+// 4.2.2
+type Filter1 = {
+  <T>(array: T[], f: (item: T) => boolean): T[];
+};
+type Filter2<T> = {
+  (array: T[], f: (item: T) => boolean): T[];
+};
+type Filter3 = <T>(array: T[], f: (item: T) => boolean) => T[];
+type Filter4<T> = (array: T[], f: (item: T) => boolean) => T[];
+// function filter5<T>(array: T[], f: (item: T) => boolean): T[] {}
+
+function map(array: unknown[], f: (item: unknown) => unknown): unknown[] {
+  const result = [];
+  for (let i = 0; i < array.length; i++) {
+    result[i] = f(array[i]);
+  }
+  return result;
+}
