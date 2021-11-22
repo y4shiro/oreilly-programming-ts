@@ -228,3 +228,12 @@ function logPermitter<Shape extends HasSides & SideshaveLength>(
 type Square = HasSides & SideshaveLength;
 const square: Square = { numberOfSides: 4, sideLength: 3 };
 logPermitter(square); // 12
+
+// 4.2.5.2
+function call<T extends unknown[], R>(f: (...args: T) => R, ...args: T): R {
+  return f(...args);
+}
+function fill(length: number, value: string): string[] {
+  return Array.from({ length }, () => value);
+}
+call(fill, 10, 'a');
