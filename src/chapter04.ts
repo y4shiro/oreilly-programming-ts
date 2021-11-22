@@ -213,3 +213,18 @@ function mapNode<T extends TreeNode>(node: T, f: (value: string) => string): T {
 const a1 = mapNode(treeA, (_) => _.toUpperCase()); // TreeNode
 const b1 = mapNode(treeB, (_) => _.toUpperCase()); // LeafNode
 const c1 = mapNode(treeC, (_) => _.toUpperCase()); // InnerNode
+
+// 4.2.5.1
+type HasSides = { numberOfSides: number };
+type SideshaveLength = { sideLength: number };
+
+function logPermitter<Shape extends HasSides & SideshaveLength>(
+  s: Shape
+): Shape {
+  console.log(s.numberOfSides * s.sideLength);
+  return s;
+}
+
+type Square = HasSides & SideshaveLength;
+const square: Square = { numberOfSides: 4, sideLength: 3 };
+logPermitter(square); // 12
