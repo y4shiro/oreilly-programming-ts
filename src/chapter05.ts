@@ -91,22 +91,49 @@ class King extends Piece {
 //   sweet: boolean;
 // };
 
-interface Food {
-  calories: number;
-  tasty: boolean;
+// interface Food {
+//   calories: number;
+//   tasty: boolean;
+// }
+// interface Sushi extends Food {
+//   salty: boolean;
+// }
+// interface Cake extends Food {
+//   sweet: boolean;
+// }
+
+// interface A {
+//   good(x: number): string;
+//   bad(x: number): string;
+// }
+// interface B extends A {
+//   good(x: string | number): string;
+//   bad(x: string): string;
+// }
+
+// 5.4.1
+interface User {
+  name: string;
 }
-interface Sushi extends Food {
-  salty: boolean;
-}
-interface Cake extends Food {
-  sweet: boolean;
+interface User {
+  age: number;
 }
 
-interface A {
-  good(x: number): string;
-  bad(x: number): string;
-}
-interface B extends A {
-  good(x: string | number): string;
-  bad(x: string): string;
-}
+const userA: User = {
+  name: 'Ashley',
+  age: 22,
+};
+
+// interface User {
+//   name: string;
+// }
+// interface User {
+//   name: number;
+// }
+
+// interface User<Age extends number> {
+//   age: Age;
+// }
+// interface User<Age extends string> {
+//   age: Age;
+// }
