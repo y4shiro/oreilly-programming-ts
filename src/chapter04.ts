@@ -230,10 +230,67 @@ const square: Square = { numberOfSides: 4, sideLength: 3 };
 logPermitter(square); // 12
 
 // 4.2.5.2
-function call<T extends unknown[], R>(f: (...args: T) => R, ...args: T): R {
+// function call<T extends unknown[], R>(f: (...args: T) => R, ...args: T): R {
+//   return f(...args);
+// }
+// function fill(length: number, value: string): string[] {
+//   return Array.from({ length }, () => value);
+// }
+// call(fill, 10, 'a');
+
+// 4.5 練習問題
+// 問 3
+type Reservation = unknown;
+
+type Reserve = {
+  (from: Date, to: Date, destination: string): Reservation;
+  (from: Date, destination: string): Reservation;
+  (destination: string): Reservation;
+};
+
+const reserve: Reserve = (
+  fromOrDestination: Date | string,
+  toOrDestination?: Date | string,
+  destination?: string
+) => {
+  if (
+    fromOrDestination instanceof Date &&
+    toOrDestination instanceof Date &&
+    destination !== undefined
+  ) {
+    // 宿泊旅行を予約
+  } else if (
+    fromOrDestination instanceof Date &&
+    typeof toOrDestination === 'string'
+  ) {
+    // 日帰り旅行を予約
+  } else if (typeof fromOrDestination === 'string') {
+    // すぐに出発する旅行を予約する
+  }
+};
+
+// 問 4
+function call<T extends [unknown, string, ...unknown[]], R>(
+  f: (...args: T) => R,
+  ...args: T
+): R {
   return f(...args);
 }
 function fill(length: number, value: string): string[] {
   return Array.from({ length }, () => value);
 }
 call(fill, 10, 'a');
+
+// 問 5
+function is<T>(a: T, ...b: [T, ...T[]]): boolean {
+  return b.every((_) => _ === a);
+}
+
+is('string', 'otherstring'); // false
+is(true, false); // false
+is(42, 42); // true
+// is(10, 'foo'); // エラー
+
+// 難問 任意の数の引数を渡せるようにする
+is(1, 1, 1); // true
+is(1, 2, 3); // false
