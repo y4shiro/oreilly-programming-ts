@@ -139,24 +139,54 @@ const userA: User = {
 // }
 
 // 5.4.2
-interface Animal {
-  readonly name: string;
-  eat(food: string): void;
-  sleep(hours: number): void;
-}
-interface Feline {
-  meow(): void;
-}
+// interface Animal {
+//   readonly name: string;
+//   eat(food: string): void;
+//   sleep(hours: number): void;
+// }
+// interface Feline {
+//   meow(): void;
+// }
 
-class Cat implements Animal, Feline {
-  name = 'Whiskers';
-  eat(food: string) {
-    console.info('Ate some', food, '. Mmm!');
-  }
-  sleep(hours: number) {
-    console.info('Slept for', hours, 'hours');
-  }
-  meow() {
-    console.log('Moew');
+// class Cat implements Animal, Feline {
+//   name = 'Whiskers';
+//   eat(food: string) {
+//     console.info('Ate some', food, '. Mmm!');
+//   }
+//   sleep(hours: number) {
+//     console.info('Slept for', hours, 'hours');
+//   }
+//   meow() {
+//     console.log('Moew');
+//   }
+// }
+
+// 5.5
+class Zebra {
+  trot() {
+    console.log('trot');
   }
 }
+class Poodle {
+  trot() {
+    console.log('trot');
+  }
+}
+function ambleAround(animal: Zebra) {
+  animal.trot();
+}
+const zebra = new Zebra();
+const poodle = new Poodle();
+ambleAround(zebra);
+ambleAround(poodle);
+
+class A {
+  private x = 1;
+}
+class B extends A {}
+function f(a: A) {
+  console.log('hi');
+}
+f(new A());
+f(new B());
+f({ x: 1 });
