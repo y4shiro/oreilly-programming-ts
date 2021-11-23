@@ -70,12 +70,43 @@ class King extends Piece {
 // set.has(2); // true
 // set.has(4); // false
 
-class Set {
-  has(value: number): boolean {}
-  add(value: number): this {}
+// class Set {
+//   has(value: number): boolean {}
+//   add(value: number): this {}
+// }
+
+// class MutableSet extends Set {
+//   delete(value: number): boolean {}
+// }
+
+// 5.4
+// type Food = {
+//   calories: number;
+//   tasty: boolean;
+// };
+// type Sushi = Food & {
+//   salty: boolean;
+// };
+// type Cake = Food & {
+//   sweet: boolean;
+// };
+
+interface Food {
+  calories: number;
+  tasty: boolean;
+}
+interface Sushi extends Food {
+  salty: boolean;
+}
+interface Cake extends Food {
+  sweet: boolean;
 }
 
-class MutableSet extends Set {
-  delete(value: number): boolean {}
-  add(value: number): MutableSet {}
+interface A {
+  good(x: number): string;
+  bad(x: number): string;
+}
+interface B extends A {
+  good(x: string | number): string;
+  bad(x: string): string;
 }
