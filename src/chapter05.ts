@@ -137,3 +137,26 @@ const userA: User = {
 // interface User<Age extends string> {
 //   age: Age;
 // }
+
+// 5.4.2
+interface Animal {
+  readonly name: string;
+  eat(food: string): void;
+  sleep(hours: number): void;
+}
+interface Feline {
+  meow(): void;
+}
+
+class Cat implements Animal, Feline {
+  name = 'Whiskers';
+  eat(food: string) {
+    console.info('Ate some', food, '. Mmm!');
+  }
+  sleep(hours: number) {
+    console.info('Slept for', hours, 'hours');
+  }
+  meow() {
+    console.log('Moew');
+  }
+}
