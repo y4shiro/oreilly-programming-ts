@@ -282,8 +282,16 @@ class StringDatabase {
 //   getValue(): Payload {}
 // }
 
-const APIPayload = serializable(
-  class APIPayload {
-    getvalue(): Payload {}
+// const APIPayload = serializable(
+//   class APIPayload {
+//     getvalue(): Payload {}
+//   }
+// );
+
+// 5.10
+class MessageQueue {
+  private constructor(private messages: string[]) {}
+  static create(messages: string[]) {
+    return new MessageQueue(messages);
   }
-);
+}
