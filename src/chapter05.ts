@@ -289,9 +289,41 @@ class StringDatabase {
 // );
 
 // 5.10
-class MessageQueue {
-  private constructor(private messages: string[]) {}
-  static create(messages: string[]) {
-    return new MessageQueue(messages);
-  }
+// class MessageQueue {
+//   private constructor(private messages: string[]) {}
+//   static create(messages: string[]) {
+//     return new MessageQueue(messages);
+//   }
+// }
+
+// 5.11.1
+type Shoe = {
+  purpose: string;
+};
+
+class BalletFlat implements Shoe {
+  purpose = 'dancing';
 }
+
+class Boot implements Shoe {
+  purpose = 'woodcutting';
+}
+
+class Sneaker implements Shoe {
+  purpose = 'walking';
+}
+
+const Shoe = {
+  create(type: 'balletFlat' | 'boot' | 'sneaker'): Shoe {
+    switch (type) {
+      case 'balletFlat':
+        return new BalletFlat();
+      case 'boot':
+        return new Boot();
+      case 'sneaker':
+        return new Sneaker();
+    }
+  },
+};
+
+Shoe.create('boot'); // Shoe
