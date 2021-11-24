@@ -162,31 +162,52 @@ const userA: User = {
 // }
 
 // 5.5
-class Zebra {
-  trot() {
-    console.log('trot');
-  }
-}
-class Poodle {
-  trot() {
-    console.log('trot');
-  }
-}
-function ambleAround(animal: Zebra) {
-  animal.trot();
-}
-const zebra = new Zebra();
-const poodle = new Poodle();
-ambleAround(zebra);
-ambleAround(poodle);
+// class Zebra {
+//   trot() {
+//     console.log('trot');
+//   }
+// }
+// class Poodle {
+//   trot() {
+//     console.log('trot');
+//   }
+// }
+// function ambleAround(animal: Zebra) {
+//   animal.trot();
+// }
+// const zebra = new Zebra();
+// const poodle = new Poodle();
+// ambleAround(zebra);
+// ambleAround(poodle);
 
-class A {
-  private x = 1;
+// class A {
+//   private x = 1;
+// }
+// class B extends A {}
+// function f(a: A) {
+//   console.log('hi');
+// }
+// f(new A());
+// f(new B());
+// f({ x: 1 });
+
+// 5.6
+type State = {
+  [key: string]: string;
+};
+class StringDatabase {
+  state: State = {};
+  get(key: string): string | null {
+    return key in this.state ? this.state[key] : null;
+  }
+  set(key: string, value: string): void {
+    this.state[key] = value;
+  }
+  static from(state: State) {
+    const db = new StringDatabase();
+    for (const key in state) {
+      db.set(key, state[key]);
+    }
+    return db;
+  }
 }
-class B extends A {}
-function f(a: A) {
-  console.log('hi');
-}
-f(new A());
-f(new B());
-f({ x: 1 });
