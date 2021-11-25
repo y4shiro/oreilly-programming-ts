@@ -327,13 +327,64 @@ function clone(f: (b: Bird) => Bird): void {
 // get(activityLog, 'bad'); // エラー
 
 // 6.3.2
+// type Weekday = 'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri';
+// type Day = Weekday | 'Sat' | 'Sun';
+
+// const nextDay: Record<Weekday, Day> = {
+//   Mon: 'Tue',
+//   Tue: 'Wed',
+//   Wed: 'Thu',
+//   Thu: 'Fri',
+//   Fri: 'Mon',
+// };
+
+// 6.3.3
 type Weekday = 'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri';
 type Day = Weekday | 'Sat' | 'Sun';
 
-const nextDay: Record<Weekday, Day> = {
+const nextDay: { [K in Weekday]: Day } = {
   Mon: 'Tue',
   Tue: 'Wed',
   Wed: 'Thu',
   Thu: 'Fri',
   Fri: 'Mon',
+};
+
+// type MyMappedType = {
+//   [Key in UnionType]: ValueType;
+// };
+
+// type Record<K extends keyof any, T> = {
+//   [P in K]: T;
+// };
+
+type Account = {
+  id: number;
+  isEmployee: boolean;
+  notes: string[];
+};
+
+// 全てのフィールドをオプショナルにする
+type OptionalAccount = {
+  [K in keyof Account]?: Account[K];
+};
+
+// 全てのフィールドを null 許容にする
+type NullableAccount = {
+  [K in keyof Account]: Account[K] | null;
+};
+
+// 全てのフィールドを読み取り専用にする
+type ReadonlyAccount = {
+  readonly [K in keyof Account]: Account[K];
+};
+
+// 全てのフィールドを再び書き込み可能にする
+type Account2 = {
+  -readonly [K in keyof ReadonlyAccount]: Account[K];
+};
+
+// 全てのフィールドを再び必須にする
+type Account3 = {
+  [K in keyof OptionalAccount]-?: Account[K];
 };
