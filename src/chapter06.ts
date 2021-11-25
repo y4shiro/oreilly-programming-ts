@@ -415,8 +415,28 @@ function clone(f: (b: Bird) => Bird): void {
 // 6.4.1 タプルについての型推論の改善
 // const a = [1, true]; // (number | boolean)[]
 
-function tuple<T extends unknown[]>(...ts: T): T {
-  return ts;
+// function tuple<T extends unknown[]>(...ts: T): T {
+//   return ts;
+// }
+// const a = tuple(1, true); // [number, boolean]
+
+// 6.4.2 ユーザー定義型ガード
+function isString(a: unknown): a is string {
+  return typeof a === 'string';
+}
+const a = isString('a'); // true
+const seven = isString([7]); // false
+
+function parseInput(input: string | number) {
+  let formattedInput: string;
+  if (isString(input)) {
+    formattedInput = input.toUpperCase();
+  }
 }
 
-const a = tuple(1, true); // [number, boolean]
+type LegacyDialog; // ...
+type Dialog; //...
+
+function isLegacyDialog(dialog: LegacyDialog | Dialog): dialog is LegacyDialog {
+	// ...
+}
