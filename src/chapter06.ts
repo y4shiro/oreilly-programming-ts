@@ -113,10 +113,18 @@ function clone(f: (b: Bird) => Bird): void {
 // a = 3; // any
 // a = 'b'; // any
 
-function x() {
-  let a = null; // any
-  a = 3; // any
-  a = 'b'; // any
-  return a;
-}
-x(); // string
+// function x() {
+//   let a = null; // any
+//   a = 3; // any
+//   a = 'b'; // any
+//   return a;
+// }
+// x(); // string
+
+// 6.1.4.1
+let a = { x: 3 }; // { x: number }
+let b: { x: 3 }; // { x: 3 }
+let c = { x: 3 } as const; // { readonly x: 3 }
+
+let d = [1, { x: 2 }]; // (number | { x: number })[]
+let e = [1, { x: 2 }] as const; // readonly [1, { readonly x: 2 }]
