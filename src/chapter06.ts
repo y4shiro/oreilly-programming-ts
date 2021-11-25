@@ -70,11 +70,53 @@ function clone(f: (b: Bird) => Bird): void {
 // function birdToAnimal(d: Bird): Animal {}
 // clone(birdToAnimal);
 
-function AnimalToBird(a: Animal): Bird {}
-clone(AnimalToBird);
+// function AnimalToBird(a: Animal): Bird {}
+// clone(AnimalToBird);
 
-function CrowToBird(c: Crow): Bird {
-  c.caw();
-  return new Bird();
+// function CrowToBird(c: Crow): Bird {
+//   c.caw();
+//   return new Bird();
+// }
+// clone(CrowToBird);
+
+// 6.1.4
+// let a = 'x'; // string
+// let b = 3; // number
+// var c = true; // boolean
+// const d = { x: 3 }; // {x: number}
+
+// enum E {
+//   X,
+//   Y,
+//   Z,
+// }
+// let e = E.X; // E
+
+// const a = 'x'; // 'x'
+// const b = 3; // 3
+// const c = true; // true
+
+// enum E {
+//   X,
+//   Y,
+//   Z,
+// }
+// const e = E.X; // E.X
+
+// const a = 'x'; // 'x'
+// let b = a; // string
+
+// const c: 'x' = 'x'; // 'x'
+// let d = c; // 'x'
+
+// let a = null; // any
+// a = 3; // any
+// a = 'b'; // any
+
+function x() {
+  let a = null; // any
+  a = 3; // any
+  a = 'b'; // any
+  return a;
 }
-clone(CrowToBird);
+x(); // string
