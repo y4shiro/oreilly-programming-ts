@@ -390,24 +390,33 @@ function clone(f: (b: Bird) => Bird): void {
 // };
 
 // 6.3.4 コンパニオンオブジェクトパターン
-type Unit = 'EUR' | 'GBP' | 'JPY' | 'USD';
-type Currency = {
-  unit: Unit;
-  value: number;
-};
+// type Unit = 'EUR' | 'GBP' | 'JPY' | 'USD';
+// type Currency = {
+//   unit: Unit;
+//   value: number;
+// };
 
-const Currency = {
-  from(value: number, unit: Unit): Currency {
-    return {
-      unit: unit,
-      value,
-    };
-  },
-};
+// const Currency = {
+//   from(value: number, unit: Unit): Currency {
+//     return {
+//       unit: unit,
+//       value,
+//     };
+//   },
+// };
 
-import { Cunnrency } from './Currency';
-let amountDue: Currency = {
-  unit: 'JPY',
-  value: 900.1,
-};
-let otherAmountDue = Currency.from(330, 'EUR');
+// import { Cunnrency } from './Currency';
+// let amountDue: Currency = {
+//   unit: 'JPY',
+//   value: 900.1,
+// };
+// let otherAmountDue = Currency.from(330, 'EUR');
+
+// 6.4.1 タプルについての型推論の改善
+// const a = [1, true]; // (number | boolean)[]
+
+function tuple<T extends unknown[]>(...ts: T): T {
+  return ts;
+}
+
+const a = tuple(1, true); // [number, boolean]
