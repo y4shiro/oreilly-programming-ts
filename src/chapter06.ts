@@ -130,34 +130,74 @@ function clone(f: (b: Bird) => Bird): void {
 // let e = [1, { x: 2 }] as const; // readonly [1, { readonly x: 2 }]
 
 // 6.1.5
-type Unit = 'cm' | 'px' | '%';
-const units: Unit[] = ['cm', 'px', '%'];
+// type Unit = 'cm' | 'px' | '%';
+// const units: Unit[] = ['cm', 'px', '%'];
 
-function parseUnit(value: string): Unit | null {
-  for (let i = 0; i < units.length; i++) {
-    if (value.endsWith(units[i])) {
-      return units[i];
-    }
-  }
-  return null;
-}
+// function parseUnit(value: string): Unit | null {
+//   for (let i = 0; i < units.length; i++) {
+//     if (value.endsWith(units[i])) {
+//       return units[i];
+//     }
+//   }
+//   return null;
+// }
 
-type Width = {
-  unit: Unit;
-  value: number;
+// type Width = {
+//   unit: Unit;
+//   value: number;
+// };
+
+// function parseWidth(width: number | string | null | undefined): Width | null {
+//   if (width == null) return null;
+
+//   if (typeof width === 'number') {
+//     return { unit: 'px', value: width };
+//   }
+
+//   const unit = parseUnit(width);
+//   if (unit) {
+//     return { unit, value: parseFloat(width) };
+//   }
+
+//   return null;
+// }
+
+// 6.1.5.1
+
+// type UserTextEvent = { value: string; target: HTMLInputElement };
+// type UserMouseEvent = { value: [number, number]; target: HTMLElement };
+// type UserEvent = UserTextEvent | UserMouseEvent;
+
+// function handle(event: UserEvent) {
+//   if (typeof event.value === 'string') {
+//     event.value; // string
+//     event.target; // HTMLInputElement | HTMLElement
+//     // ...
+//     return;
+//   }
+//   event.value; // [number, number]
+//   event.target; // HTMLInputElement | HTMLElement
+// }
+
+type UserTextEvent = {
+  type: 'TextEvent';
+  value: string;
+  target: HTMLInputElement;
 };
+type UserMouseEvent = {
+  type: 'MouseEvent';
+  value: [number, number];
+  target: HTMLElement;
+};
+type UserEvent = UserTextEvent | UserMouseEvent;
 
-function parseWidth(width: number | string | null | undefined): Width | null {
-  if (width == null) return null;
-
-  if (typeof width === 'number') {
-    return { unit: 'px', value: width };
+function handle(event: UserEvent) {
+  if (event.type === 'TextEvent') {
+    event.value; // string
+    event.target; // HTMLInputElement
+    // ...
+    return;
   }
-
-  const unit = parseUnit(width);
-  if (unit) {
-    return { unit, value: parseFloat(width) };
-  }
-
-  return null;
+  event.value; // [number, number]
+  event.target; // HTMLElement
 }
