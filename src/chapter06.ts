@@ -179,25 +179,50 @@ function clone(f: (b: Bird) => Bird): void {
 //   event.target; // HTMLInputElement | HTMLElement
 // }
 
-type UserTextEvent = {
-  type: 'TextEvent';
-  value: string;
-  target: HTMLInputElement;
-};
-type UserMouseEvent = {
-  type: 'MouseEvent';
-  value: [number, number];
-  target: HTMLElement;
-};
-type UserEvent = UserTextEvent | UserMouseEvent;
+// type UserTextEvent = {
+//   type: 'TextEvent';
+//   value: string;
+//   target: HTMLInputElement;
+// };
+// type UserMouseEvent = {
+//   type: 'MouseEvent';
+//   value: [number, number];
+//   target: HTMLElement;
+// };
+// type UserEvent = UserTextEvent | UserMouseEvent;
 
-function handle(event: UserEvent) {
-  if (event.type === 'TextEvent') {
-    event.value; // string
-    event.target; // HTMLInputElement
-    // ...
-    return;
+// function handle(event: UserEvent) {
+//   if (event.type === 'TextEvent') {
+//     event.value; // string
+//     event.target; // HTMLInputElement
+//     // ...
+//     return;
+//   }
+//   event.value; // [number, number]
+//   event.target; // HTMLElement
+// }
+
+// 6.2
+type Weekday = 'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri';
+type Day = Weekday | 'Sat' | 'Sun';
+
+function getNextDay(w: Weekday): Day {
+  switch (w) {
+    case 'Mon':
+      return 'Tue';
+    case 'Tue':
+      return 'Wed';
+    case 'Wed':
+      return 'Thu';
+    case 'Thu':
+      return 'Fri';
+    case 'Fri':
+      return 'Sat';
   }
-  event.value; // [number, number]
-  event.target; // HTMLElement
+}
+
+function isBig(n: number) {
+  if (n >= 100) {
+    return true;
+  }
 }
