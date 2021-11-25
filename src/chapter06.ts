@@ -421,22 +421,25 @@ function clone(f: (b: Bird) => Bird): void {
 // const a = tuple(1, true); // [number, boolean]
 
 // 6.4.2 ユーザー定義型ガード
-function isString(a: unknown): a is string {
-  return typeof a === 'string';
-}
-const a = isString('a'); // true
-const seven = isString([7]); // false
+// function isString(a: unknown): a is string {
+//   return typeof a === 'string';
+// }
+// const a = isString('a'); // true
+// const seven = isString([7]); // false
 
-function parseInput(input: string | number) {
-  let formattedInput: string;
-  if (isString(input)) {
-    formattedInput = input.toUpperCase();
-  }
-}
+// function parseInput(input: string | number) {
+//   let formattedInput: string;
+//   if (isString(input)) {
+//     formattedInput = input.toUpperCase();
+//   }
+// }
 
-type LegacyDialog; // ...
-type Dialog; //...
+// type LegacyDialog; // ...
+// type Dialog; //...
 
-function isLegacyDialog(dialog: LegacyDialog | Dialog): dialog is LegacyDialog {
-	// ...
-}
+// function isLegacyDialog(dialog: LegacyDialog | Dialog): dialog is LegacyDialog {
+// 	// ...
+// }
+
+// 6.5 条件型
+type IsString<T> = T extends string ? true : false;
