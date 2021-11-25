@@ -339,16 +339,16 @@ function clone(f: (b: Bird) => Bird): void {
 // };
 
 // 6.3.3
-type Weekday = 'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri';
-type Day = Weekday | 'Sat' | 'Sun';
+// type Weekday = 'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri';
+// type Day = Weekday | 'Sat' | 'Sun';
 
-const nextDay: { [K in Weekday]: Day } = {
-  Mon: 'Tue',
-  Tue: 'Wed',
-  Wed: 'Thu',
-  Thu: 'Fri',
-  Fri: 'Mon',
-};
+// const nextDay: { [K in Weekday]: Day } = {
+//   Mon: 'Tue',
+//   Tue: 'Wed',
+//   Wed: 'Thu',
+//   Thu: 'Fri',
+//   Fri: 'Mon',
+// };
 
 // type MyMappedType = {
 //   [Key in UnionType]: ValueType;
@@ -358,33 +358,56 @@ const nextDay: { [K in Weekday]: Day } = {
 //   [P in K]: T;
 // };
 
-type Account = {
-  id: number;
-  isEmployee: boolean;
-  notes: string[];
+// type Account = {
+//   id: number;
+//   isEmployee: boolean;
+//   notes: string[];
+// };
+
+// // 全てのフィールドをオプショナルにする
+// type OptionalAccount = {
+//   [K in keyof Account]?: Account[K];
+// };
+
+// // 全てのフィールドを null 許容にする
+// type NullableAccount = {
+//   [K in keyof Account]: Account[K] | null;
+// };
+
+// // 全てのフィールドを読み取り専用にする
+// type ReadonlyAccount = {
+//   readonly [K in keyof Account]: Account[K];
+// };
+
+// // 全てのフィールドを再び書き込み可能にする
+// type Account2 = {
+//   -readonly [K in keyof ReadonlyAccount]: Account[K];
+// };
+
+// // 全てのフィールドを再び必須にする
+// type Account3 = {
+//   [K in keyof OptionalAccount]-?: Account[K];
+// };
+
+// 6.3.4 コンパニオンオブジェクトパターン
+type Unit = 'EUR' | 'GBP' | 'JPY' | 'USD';
+type Currency = {
+  unit: Unit;
+  value: number;
 };
 
-// 全てのフィールドをオプショナルにする
-type OptionalAccount = {
-  [K in keyof Account]?: Account[K];
+const Currency = {
+  from(value: number, unit: Unit): Currency {
+    return {
+      unit: unit,
+      value,
+    };
+  },
 };
 
-// 全てのフィールドを null 許容にする
-type NullableAccount = {
-  [K in keyof Account]: Account[K] | null;
+import { Cunnrency } from './Currency';
+let amountDue: Currency = {
+  unit: 'JPY',
+  value: 900.1,
 };
-
-// 全てのフィールドを読み取り専用にする
-type ReadonlyAccount = {
-  readonly [K in keyof Account]: Account[K];
-};
-
-// 全てのフィールドを再び書き込み可能にする
-type Account2 = {
-  -readonly [K in keyof ReadonlyAccount]: Account[K];
-};
-
-// 全てのフィールドを再び必須にする
-type Account3 = {
-  [K in keyof OptionalAccount]-?: Account[K];
-};
+let otherAmountDue = Currency.from(330, 'EUR');
