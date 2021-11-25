@@ -203,26 +203,62 @@ function clone(f: (b: Bird) => Bird): void {
 // }
 
 // 6.2
-type Weekday = 'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri';
-type Day = Weekday | 'Sat' | 'Sun';
+// type Weekday = 'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri';
+// type Day = Weekday | 'Sat' | 'Sun';
 
-function getNextDay(w: Weekday): Day {
-  switch (w) {
-    case 'Mon':
-      return 'Tue';
-    case 'Tue':
-      return 'Wed';
-    case 'Wed':
-      return 'Thu';
-    case 'Thu':
-      return 'Fri';
-    case 'Fri':
-      return 'Sat';
-  }
-}
+// function getNextDay(w: Weekday): Day {
+//   switch (w) {
+//     case 'Mon':
+//       return 'Tue';
+//     case 'Tue':
+//       return 'Wed';
+//     case 'Wed':
+//       return 'Thu';
+//     case 'Thu':
+//       return 'Fri';
+//     case 'Fri':
+//       return 'Sat';
+//   }
+// }
 
-function isBig(n: number) {
-  if (n >= 100) {
-    return true;
-  }
-}
+// function isBig(n: number) {
+//   if (n >= 100) {
+//     return true;
+//   }
+// }
+
+// 6.3.1.1
+// type FriendList = {
+//   count: number;
+//   friends: {
+//     firstName: string;
+//     lastName: string;
+//   }[];
+// };
+
+// type APIResponse = {
+//   user: {
+//     userId: string;
+//     friendList: FriendList;
+//   };
+// };
+type APIResponse = {
+  user: {
+    userId: string;
+    friendList: {
+      count: number;
+      friends: {
+        firstName: string;
+        lastName: string;
+      }[];
+    };
+  };
+};
+
+type FriendList = APIResponse['user']['friendList'];
+
+function getAPIResponse(): Promise<APIResponse> {}
+function renderFriendList(friendList: FriendList) {}
+
+const response = await getAPIResponse();
+renderFriendList(response.user.friendList);
