@@ -122,9 +122,42 @@ function clone(f: (b: Bird) => Bird): void {
 // x(); // string
 
 // 6.1.4.1
-let a = { x: 3 }; // { x: number }
-let b: { x: 3 }; // { x: 3 }
-let c = { x: 3 } as const; // { readonly x: 3 }
+// let a = { x: 3 }; // { x: number }
+// let b: { x: 3 }; // { x: 3 }
+// let c = { x: 3 } as const; // { readonly x: 3 }
 
-let d = [1, { x: 2 }]; // (number | { x: number })[]
-let e = [1, { x: 2 }] as const; // readonly [1, { readonly x: 2 }]
+// let d = [1, { x: 2 }]; // (number | { x: number })[]
+// let e = [1, { x: 2 }] as const; // readonly [1, { readonly x: 2 }]
+
+// 6.1.5
+type Unit = 'cm' | 'px' | '%';
+const units: Unit[] = ['cm', 'px', '%'];
+
+function parseUnit(value: string): Unit | null {
+  for (let i = 0; i < units.length; i++) {
+    if (value.endsWith(units[i])) {
+      return units[i];
+    }
+  }
+  return null;
+}
+
+type Width = {
+  unit: Unit;
+  value: number;
+};
+
+function parseWidth(width: number | string | null | undefined): Width | null {
+  if (width == null) return null;
+
+  if (typeof width === 'number') {
+    return { unit: 'px', value: width };
+  }
+
+  const unit = parseUnit(width);
+  if (unit) {
+    return { unit, value: parseFloat(width) };
+  }
+
+  return null;
+}
