@@ -514,10 +514,41 @@ function clone(f: (b: Bird) => Bird): void {
 // type I = InstanceType<J>; // { b: number }
 
 // 6.6.1 型アサーション
-function formatInput(input: string) {}
-function getUserInput(): string | number {}
+// function formatInput(input: string) {}
+// function getUserInput(): string | number {}
 
-let input = getUserInput();
+// let input = getUserInput();
 
-formatInput(input as string); // input が string であることを伝える
-formatInput(<string>input); // 上のものと同等
+// formatInput(input as string); // input が string であることを伝える
+// formatInput(<string>input); // 上のものと同等
+
+// 6.6.2 非 null アサーション
+// type Dialog = {
+//   id?: string;
+// };
+
+// function closeDialog(dialog: Dialog) {
+//   if (!dialog.id) {
+//     return;
+//   }
+//   setTimeout(() => removeFromDOM(dialog, document.getElementById(dialog.id!)!));
+// }
+
+// function removeFromDOM(dialog: Dialog, element: Element) {
+//   element.parentNode!.removeChild(element);
+//   delete dialog.id;
+// }
+
+type VisibleDialog = { id: string };
+type DestroyedDialog = {};
+type Dialog = VisibleDialog | DestroyedDialog;
+
+function closeDialog(dialog: Dialog) {
+  if (!('id' in dialog)) return; // dialog に id がない場合は早期リターン
+  setTimeout(() => removeFromDOM(dialog, document.getElementById(dialog.id)!));
+}
+
+function removeFromDOM(dialog: VisibleDialog, element: Element) {
+  element.parentNode!.removeChild(element);
+  delete dialog.id;
+}
