@@ -495,20 +495,29 @@ function clone(f: (b: Bird) => Bird): void {
 // type A = SecondArg<F>; // number | undefined
 
 // 6.5.3 組み込みの条件型
-type A = number | string;
-type B = string;
-type C = Exclude<A, B>; // number
+// type A = number | string;
+// type B = string;
+// type C = Exclude<A, B>; // number
 
-type D = number | string;
-type E = string;
-type F = Extract<D, E>; // string
+// type D = number | string;
+// type E = string;
+// type F = Extract<D, E>; // string
 
-type G = { a?: number | null };
-type H = NonNullable<G['a']>; // number
+// type G = { a?: number | null };
+// type H = NonNullable<G['a']>; // number
 
-type Func = (a: number) => string;
-type R = ReturnType<Func>; // string
+// type Func = (a: number) => string;
+// type R = ReturnType<Func>; // string
 
-type J = { new (): K };
-type K = { b: number };
-type I = InstanceType<J>; // { b: number }
+// type J = { new (): K };
+// type K = { b: number };
+// type I = InstanceType<J>; // { b: number }
+
+// 6.6.1 型アサーション
+function formatInput(input: string) {}
+function getUserInput(): string | number {}
+
+let input = getUserInput();
+
+formatInput(input as string); // input が string であることを伝える
+formatInput(<string>input); // 上のものと同等
