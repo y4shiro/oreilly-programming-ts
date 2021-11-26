@@ -490,6 +490,25 @@ function clone(f: (b: Bird) => Bird): void {
 // type ElementUgly<T, U> = T extends U[] ? U : T;
 // type C = ElementUgly<number[]>; // エラー
 
-type SecondArg<F> = F extends (a: any, b: infer B) => any ? B : never;
-type F = typeof Array['prototype']['slice']; // Array.slice の型を取得
-type A = SecondArg<F>; // number | undefined
+// type SecondArg<F> = F extends (a: any, b: infer B) => any ? B : never;
+// type F = typeof Array['prototype']['slice']; // Array.slice の型を取得
+// type A = SecondArg<F>; // number | undefined
+
+// 6.5.3 組み込みの条件型
+type A = number | string;
+type B = string;
+type C = Exclude<A, B>; // number
+
+type D = number | string;
+type E = string;
+type F = Extract<D, E>; // string
+
+type G = { a?: number | null };
+type H = NonNullable<G['a']>; // number
+
+type Func = (a: number) => string;
+type R = ReturnType<Func>; // string
+
+type J = { new (): K };
+type K = { b: number };
+type I = InstanceType<J>; // { b: number }
