@@ -442,4 +442,40 @@ function clone(f: (b: Bird) => Bird): void {
 // }
 
 // 6.5 条件型
-type IsString<T> = T extends string ? true : false;
+// type IsString<T> = T extends string ? true : false;
+
+// 6.5.1 分配条件型
+// string extends T ? A : B;
+// string extends T ? A : B;
+
+// (string | number) extends T ? A : B;
+// (string extends T ? A : B) | (number extends T ? A : B)
+
+// (string | number | boolean) extends T ? A : B;
+// (string extends T ? A : B) | (number extends T ? A : B) | (boolean extends T ? A : B)
+
+// type ToArray<T> = T[];
+// type A = ToArray<number>; // number[]
+// type B = ToArray<number | string>; // (number | string)[]
+
+// type ToArray2<T> = T extends unknown ? T[] : T[];
+// type A = ToArray2<number>; // number[]
+// type B = ToArray2<number | string>; // number[] | string[]
+
+type Without<T, U> = T extends U ? never : T;
+
+type A = Without<boolean | number | string, boolean>; // number | string
+
+// type A =
+//   | Without<boolean, boolean>
+//   | Without<number, boolean>
+//   | Without<string, boolean>;
+
+// type A =
+//   | (boolean extends boolean ? never : boolean)
+//   | (number extends boolean ? never : number)
+//   | (string extends boolean ? never : string);
+
+// type A = never | number | string;
+
+// type A = number | string;
