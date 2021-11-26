@@ -577,26 +577,35 @@ function clone(f: (b: Bird) => Bird): void {
 // const id: CompanyID = 'b123456';
 // queryForUser(id); // OK (?????????)
 
-type CompanyID = string & { readonly brand: unique symbol };
-type OrderID = string & { readonly brand: unique symbol };
-type UserID = string & { readonly brand: unique symbol };
-type ID = CompanyID | OrderID | UserID;
+// type CompanyID = string & { readonly brand: unique symbol };
+// type OrderID = string & { readonly brand: unique symbol };
+// type UserID = string & { readonly brand: unique symbol };
+// type ID = CompanyID | OrderID | UserID;
 
-function CompanyID(id: string) {
-  return id as CompanyID;
+// function CompanyID(id: string) {
+//   return id as CompanyID;
+// }
+// function OrderID(id: string) {
+//   return id as OrderID;
+// }
+// function UserID(id: string) {
+//   return id as UserID;
+// }
+
+// function queryForUser(id: UserID) {}
+
+// const companyId = CompanyID('c123456');
+// const orderId = OrderID('o123456');
+// const userId = UserID('u123456');
+
+// queryForUser(userId); // OK
+// queryForUser(companyId); // エラー
+
+// 6.8 プロトタイプを安全に拡張する
+interface Array<T> {
+  zip<U>(list: U[]): [T, U][];
 }
-function OrderID(id: string) {
-  return id as OrderID;
-}
-function UserID(id: string) {
-  return id as UserID;
-}
 
-function queryForUser(id: UserID) {}
-
-const companyId = CompanyID('c123456');
-const orderId = OrderID('o123456');
-const userId = UserID('u123456');
-
-queryForUser(userId); // OK
-queryForUser(companyId); // エラー
+Array.prototype.zip = function (list) {
+  return this.map((v, k) => [v, list[k]]);
+};
