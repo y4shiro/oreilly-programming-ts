@@ -557,11 +557,46 @@ function clone(f: (b: Bird) => Bird): void {
 // let userId: string;
 // userId.toUpperCase();
 
-let userId!: string;
-fetchUser();
+// let userId!: string;
+// fetchUser();
 
-userId.toUpperCase(); // エラー
+// userId.toUpperCase(); // エラー
 
-function fetchUser() {
-  userId = globalCache.get('userId');
+// function fetchUser() {
+//   userId = globalCache.get('userId');
+// }
+
+// 6.7 名前的型付けをシミュレートする
+// type CompanyID = string;
+// type OrderID = string;
+// type UserID = string;
+// type ID = CompanyID | OrderID | UserID;
+
+// function queryForUser(id: UserID) {}
+
+// const id: CompanyID = 'b123456';
+// queryForUser(id); // OK (?????????)
+
+type CompanyID = string & { readonly brand: unique symbol };
+type OrderID = string & { readonly brand: unique symbol };
+type UserID = string & { readonly brand: unique symbol };
+type ID = CompanyID | OrderID | UserID;
+
+function CompanyID(id: string) {
+  return id as CompanyID;
 }
+function OrderID(id: string) {
+  return id as OrderID;
+}
+function UserID(id: string) {
+  return id as UserID;
+}
+
+function queryForUser(id: UserID) {}
+
+const companyId = CompanyID('c123456');
+const orderId = OrderID('o123456');
+const userId = UserID('u123456');
+
+queryForUser(userId); // OK
+queryForUser(companyId); // エラー
