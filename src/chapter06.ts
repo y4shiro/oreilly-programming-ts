@@ -462,9 +462,9 @@ function clone(f: (b: Bird) => Bird): void {
 // type A = ToArray2<number>; // number[]
 // type B = ToArray2<number | string>; // number[] | string[]
 
-type Without<T, U> = T extends U ? never : T;
+// type Without<T, U> = T extends U ? never : T;
 
-type A = Without<boolean | number | string, boolean>; // number | string
+// type A = Without<boolean | number | string, boolean>; // number | string
 
 // type A =
 //   | Without<boolean, boolean>
@@ -479,3 +479,17 @@ type A = Without<boolean | number | string, boolean>; // number | string
 // type A = never | number | string;
 
 // type A = number | string;
+
+// 6.5.2 infer キーワード
+// type ElementType<T> = T extends unknown[] ? T[number] : T;
+// type A = ElementType<number[]>; // number
+
+// type ElementType2<T> = T extends (infer U)[] ? U : T;
+// type B = ElementType2<number[]>; // number
+
+// type ElementUgly<T, U> = T extends U[] ? U : T;
+// type C = ElementUgly<number[]>; // エラー
+
+type SecondArg<F> = F extends (a: any, b: infer B) => any ? B : never;
+type F = typeof Array['prototype']['slice']; // Array.slice の型を取得
+type A = SecondArg<F>; // number | undefined
