@@ -539,16 +539,29 @@ function clone(f: (b: Bird) => Bird): void {
 //   delete dialog.id;
 // }
 
-type VisibleDialog = { id: string };
-type DestroyedDialog = {};
-type Dialog = VisibleDialog | DestroyedDialog;
+// type VisibleDialog = { id: string };
+// type DestroyedDialog = {};
+// type Dialog = VisibleDialog | DestroyedDialog;
 
-function closeDialog(dialog: Dialog) {
-  if (!('id' in dialog)) return; // dialog に id がない場合は早期リターン
-  setTimeout(() => removeFromDOM(dialog, document.getElementById(dialog.id)!));
-}
+// function closeDialog(dialog: Dialog) {
+//   if (!('id' in dialog)) return; // dialog に id がない場合は早期リターン
+//   setTimeout(() => removeFromDOM(dialog, document.getElementById(dialog.id)!));
+// }
 
-function removeFromDOM(dialog: VisibleDialog, element: Element) {
-  element.parentNode!.removeChild(element);
-  delete dialog.id;
+// function removeFromDOM(dialog: VisibleDialog, element: Element) {
+//   element.parentNode!.removeChild(element);
+//   delete dialog.id;
+// }
+
+// 6.6.3 明確な割り当てアサーション
+// let userId: string;
+// userId.toUpperCase();
+
+let userId!: string;
+fetchUser();
+
+userId.toUpperCase(); // エラー
+
+function fetchUser() {
+  userId = globalCache.get('userId');
 }
