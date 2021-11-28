@@ -612,24 +612,24 @@ function clone(f: (b: Bird) => Bird): void {
 
 // 6.10 練習問題
 // 2.
-type O = { a: { b: { c: string } } };
-type ans = keyof O;
+// type O = { a: { b: { c: string } } };
+// type ans = keyof O;
 
 // 3.
-type Exclusive<T, U> = Exclude<T, U> | Exclude<U, T>;
-type R = Exclusive<1 | 2 | 3, 2 | 3 | 4>;
-type U = Exclusive<1 | 2, 2 | 4>;
+// type Exclusive<T, U> = Exclude<T, U> | Exclude<U, T>;
+// type R = Exclusive<1 | 2 | 3, 2 | 3 | 4>;
+// type U = Exclusive<1 | 2, 2 | 4>;
 
-// 4.
-let globalCache = {
-  get(key: string) {
-    return 'user';
-  },
-};
+// // 4.
+// let globalCache = {
+//   get(key: string) {
+//     return 'user';
+//   },
+// };
 
-let uesrId = fetchUser();
-uesrId.toUpperCase();
+// let uesrId = fetchUser();
+// uesrId.toUpperCase();
 
-function fetchUser() {
-  return globalCache.get('userId');
-}
+// function fetchUser() {
+//   return globalCache.get('userId');
+// }
