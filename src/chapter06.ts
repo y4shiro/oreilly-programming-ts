@@ -602,10 +602,34 @@ function clone(f: (b: Bird) => Bird): void {
 // queryForUser(companyId); // エラー
 
 // 6.8 プロトタイプを安全に拡張する
-interface Array<T> {
-  zip<U>(list: U[]): [T, U][];
-}
+// interface Array<T> {
+//   zip<U>(list: U[]): [T, U][];
+// }
 
-Array.prototype.zip = function (list) {
-  return this.map((v, k) => [v, list[k]]);
+// Array.prototype.zip = function (list) {
+//   return this.map((v, k) => [v, list[k]]);
+// };
+
+// 6.10 練習問題
+// 2.
+type O = { a: { b: { c: string } } };
+type ans = keyof O;
+
+// 3.
+type Exclusive<T, U> = Exclude<T, U> | Exclude<U, T>;
+type R = Exclusive<1 | 2 | 3, 2 | 3 | 4>;
+type U = Exclusive<1 | 2, 2 | 4>;
+
+// 4.
+let globalCache = {
+  get(key: string) {
+    return 'user';
+  },
 };
+
+let uesrId = fetchUser();
+uesrId.toUpperCase();
+
+function fetchUser() {
+  return globalCache.get('userId');
+}
