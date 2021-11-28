@@ -1,12 +1,18 @@
-// 7.1 null を返す
 function ask() {
   return prompt('When is your birthday?');
 }
 
-function parse(birthday: string): Date | null {
+// カスタムエラー型
+class InvalidDateFormatError extends RangeError {}
+class DateIsInTheFutureError extends RangeError {}
+
+function parse(birthday: string): Date {
   const date = new Date(birthday);
   if (!isValid(date)) {
-    return null;
+    throw new InvalidDateFormatError('Enter a date in the from YYYY/MM//DD');
+  }
+  if (date.getTime() > Date.now()) {
+    throw new DateIsInTheFutureError('Are you a timeload?');
   }
   return date;
 }
@@ -18,9 +24,15 @@ function isValid(date: Date) {
   );
 }
 
-const date = parse(ask());
-if (date) {
+try {
+  const date = parse(ask());
   console.info('Date is', date.toISOString());
-} else {
-  console.error('Error');
+} catch (e) {
+  if (e instanceof InvalidDateFormatError) {
+    console.error(e.message);
+  } else if (e instanceof DateIsInTheFutureError) {
+    console.error(e.message);
+  } else {
+    throw e;
+  }
 }
