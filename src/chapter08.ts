@@ -37,27 +37,27 @@
 // 	.catch(error => console.error(error));
 // }
 
-import { readFile } from 'fs';
+// import { readFile } from 'fs';
 
-function readFilePromise(path: string): Promise<string> {
-  return new Promise((resolve, reject) => {
-    readFile(path, (error, result) => {
-      if (error) reject(error);
-      else resolve(result);
-    });
-  });
-}
+// function readFilePromise(path: string): Promise<string> {
+//   return new Promise((resolve, reject) => {
+//     readFile(path, (error, result) => {
+//       if (error) reject(error);
+//       else resolve(result);
+//     });
+//   });
+// }
 
-type Executor<T> = (
-  resolve: (result: T) => void,
-  reject: (error: unknown) => void
-) => void;
+// type Executor<T> = (
+//   resolve: (result: T) => void,
+//   reject: (error: unknown) => void
+// ) => void;
 
-class Promise<T> {
-  constructor(f: Executor<T>) {}
-  then<U>(g: (result: T) => Promise<U> | U): Promise<U>;
-  catch<U>(g: (error: unknown) => Promise<U> | U): Promise<U>;
-}
+// class Promise<T> {
+//   constructor(f: Executor<T>) {}
+//   then<U>(g: (result: T) => Promise<U> | U): Promise<U>;
+//   catch<U>(g: (error: unknown) => Promise<U> | U): Promise<U>;
+// }
 
 // let a: () => Promise<string, TypeError>;
 // let b: (s: string) => Promise<number, never>;
@@ -68,3 +68,16 @@ class Promise<T> {
 //   .catch((e) => c())
 //   .then((result) => console.info('Done', result))
 //   .catch((e) => console.error('Error', e));
+
+// 8.4 async と await
+async function getUser() {
+  try {
+    const user = await getUserID(18);
+    const location = await getLocation(user);
+    console.info('got location', location);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    console.info('done getting location');
+  }
+}
