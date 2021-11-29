@@ -70,14 +70,42 @@
 //   .catch((e) => console.error('Error', e));
 
 // 8.4 async と await
-async function getUser() {
-  try {
-    const user = await getUserID(18);
-    const location = await getLocation(user);
-    console.info('got location', location);
-  } catch (error) {
-    console.error(error);
-  } finally {
-    console.info('done getting location');
-  }
+// async function getUser() {
+//   try {
+//     const user = await getUserID(18);
+//     const location = await getLocation(user);
+//     console.info('got location', location);
+//   } catch (error) {
+//     console.error(error);
+//   } finally {
+//     console.info('done getting location');
+//   }
+// }
+
+// 8.5.1 イベントエミッター
+interface Emitter {
+  // イベント送信
+  emit(channel: string, value: unknown): void;
+  // イベントが送信されたときに何かを行う
+  on(channel: string, f: (value: unknown) => void): void;
 }
+
+import redis from 'redis';
+// Redis クライアントの新しいインスタンスを作成する
+const client = redis.createClient();
+
+// クライアントによって発行されるイベントをリッスンする
+client.on('ready', () => console.info('Client is ready'));
+client.on('error', (e) => console.error('Ah error occurred!', e));
+client.on('reconnecting', (params) => console.info('Recconecting...', params));
+
+type Events = {
+  ready: void;
+  error: Error;
+  reconnecting: { attempt: number; delay: number };
+};
+
+type RedisClient = {
+  on<E extends keyof Events>(event: E, f: (arg: Events[E]) => void): void;
+  emit<E extends keyof Event>(event: E, arg: Events[E]): void;
+};
