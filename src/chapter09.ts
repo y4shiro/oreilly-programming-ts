@@ -18,21 +18,21 @@
 // document.querySelector('.Element').value;
 
 // 9.2 型安全な API
-type Request =
-  | { entity: 'user'; data: User }
-  | { entity: 'location'; data: Location };
+// type Request =
+//   | { entity: 'user'; data: User }
+//   | { entity: 'location'; data: Location };
 
-// client.ts
-async function get<R extends Request>(entity: R['entity']): Promise<R['data']> {
-  const res = await fetch(`/api/${entity}`);
-  const json = await res.json();
-  if (!json) {
-    throw ReferenceError('Empty response');
-  }
-  return json;
-}
+// // client.ts
+// async function get<R extends Request>(entity: R['entity']): Promise<R['data']> {
+//   const res = await fetch(`/api/${entity}`);
+//   const json = await res.json();
+//   if (!json) {
+//     throw ReferenceError('Empty response');
+//   }
+//   return json;
+// }
 
-// app.ts
-async function startApp() {
-  const user = await get('user');
-}
+// // app.ts
+// async function startApp() {
+//   const user = await get('user');
+// }
